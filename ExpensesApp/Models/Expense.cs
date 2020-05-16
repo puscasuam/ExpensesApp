@@ -42,6 +42,5 @@ namespace ExpensesApp.Models
 
         public Type Type { get; set; }
 
-
     }
 }
