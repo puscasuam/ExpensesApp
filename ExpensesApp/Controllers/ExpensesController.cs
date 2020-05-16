@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ExpensesApp.Models;
@@ -22,9 +21,27 @@ namespace ExpensesApp.Controllers
 
         // GET: api/Expenses
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Expense>>> GetExpenses()
+        public async Task<ActionResult<IEnumerable<Expense>>> GetExpenses(
+            [FromQuery]DateTime? from = null, 
+            [FromQuery]DateTime? to = null)
         {
-            return await _context.Expenses.ToListAsync();
+            IQueryable<Expense> result = _context.Expenses;
+
+            if (from != null && to != null)
+            {
+                result = result.Where(f => from <= f.Date && f.Date <= to);
+            } 
+            else if (from != null)
+            {
+                result = result.Where(f => from <= f.Date);
+            }
+            else if (to != null)
+            {
+                result = result.Where(f => f.Date <= to);
+            }
+
+            var resultList = await result.ToListAsync();
+            return resultList;
         }
 
         // GET: api/Expenses/5

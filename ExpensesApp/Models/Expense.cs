@@ -41,6 +41,5 @@ namespace ExpensesApp.Models
         public Currency Currency { get; set; }
 
         public Type Type { get; set; }
-
     }
 }

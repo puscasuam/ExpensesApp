@@ -11,7 +11,7 @@ namespace ExpensesApp.ModelValidators
     {
         public ExpenseValidator()
         {
-            RuleFor(x => x.Description).MinimumLength(2);
+            RuleFor(x => x.Description).MinimumLength(2).MaximumLength(50);
             RuleFor(x => x.Sum).GreaterThan(0);
             RuleFor(x => x.Date).LessThan(DateTime.Now);
         }
