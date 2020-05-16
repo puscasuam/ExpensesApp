@@ -1,6 +1,6 @@
 using System;
 
-namespace ExpensesApp
+namespace ExpensesApp.Models
 {
     public class WeatherForecast
     {
