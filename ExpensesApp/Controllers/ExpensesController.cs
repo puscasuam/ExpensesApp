@@ -23,22 +23,33 @@ namespace ExpensesApp.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Expense>>> GetExpenses(
             [FromQuery]DateTime? from = null, 
-            [FromQuery]DateTime? to = null)
+            [FromQuery]DateTime? to = null,
+            [FromQuery]Models.Type? type = null)
         {
             IQueryable<Expense> result = _context.Expenses;
 
-            if (from != null && to != null)
+            if (from != null && to != null && type != null)
             {
-                result = result.Where(f => from <= f.Date && f.Date <= to);
-            } 
-            else if (from != null)
+                result = result.Where(f => from <= f.Date && f.Date <= to && f.Type == type);
+            }
+            else if (from != null && type == null)
             {
                 result = result.Where(f => from <= f.Date);
             }
-            else if (to != null)
+            else if (from != null && type != null)
+            {
+                result = result.Where(f => from <= f.Date && f.Type == type);
+            }
+            else if (to != null && type == null)
             {
                 result = result.Where(f => f.Date <= to);
             }
+            else if (to != null && type != null)
+            {
+                result = result.Where(f => f.Date <= to && f.Type == type);
+            }
+            else if (type != null)
+                result = result.Where(f => f.Type == type);
 
             var resultList = await result.ToListAsync();
             return resultList;

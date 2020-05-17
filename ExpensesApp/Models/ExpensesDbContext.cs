@@ -10,6 +10,6 @@ namespace ExpensesApp.Models
         {
         }
 
-        public DbSet<Expense> Expenses { get; set; }
+        public DbSet<Expense> Expenses { get; set; } 
     }
 }
