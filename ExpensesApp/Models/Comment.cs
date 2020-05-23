@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace ExpensesApp.Models
@@ -12,6 +13,8 @@ namespace ExpensesApp.Models
         public bool Important { get; set; }
 
         public long ExpenseId { get; set; }
+        
+        [JsonIgnore]
         public Expense Expense { get; set; }
     }
 }
