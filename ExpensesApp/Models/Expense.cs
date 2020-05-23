@@ -29,17 +29,12 @@ namespace ExpensesApp.Models
     public class Expense
     {
         public long Id { get; set; }
-
         public string Description { get; set; }
-
         public long Sum { get; set; }
-
         public string Location { get; set; }
-
         public DateTime Date { get; set; }
-
         public Currency Currency { get; set; }
-
         public Type Type { get; set; }
+        public List<Comment> Comments { get; set; }
     }
 }

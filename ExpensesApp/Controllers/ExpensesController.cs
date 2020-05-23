@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ExpensesApp.Models;
+using ExpensesApp.Dto;
+using AutoMapper;
 
 namespace ExpensesApp.Controllers
 {
@@ -21,12 +23,12 @@ namespace ExpensesApp.Controllers
 
         // GET: api/Expenses
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Expense>>> GetExpenses(
+        public async Task<ActionResult<IEnumerable<ExpenseDtoGet>>> GetExpenses(
             [FromQuery]DateTime? from = null, 
             [FromQuery]DateTime? to = null,
             [FromQuery]Models.Type? type = null)
         {
-            IQueryable<Expense> result = _context.Expenses;
+            IQueryable<Expense> result = _context.Expenses.Include(e => e.Comments);
 
             if (from != null && to != null && type != null)
             {
@@ -48,25 +50,48 @@ namespace ExpensesApp.Controllers
             {
                 result = result.Where(f => f.Date <= to && f.Type == type);
             }
-            else if (type != null)
+            else if (type != null) 
+            {
                 result = result.Where(f => f.Type == type);
+            }
 
-            var resultList = await result.ToListAsync();
+
+            var resultList = await result.Select(e => ExpenseDtoGet.GetDtoFromExpense(e)).ToListAsync();
+
             return resultList;
         }
 
         // GET: api/Expenses/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Expense>> GetExpense(long id)
-        {
-            var expense = await _context.Expenses.FindAsync(id);
+        {   
+            var expense =  _context.Expenses
+                .Include(e => e.Comments)
+                //.Select(e => new ExpenseDtoDetail()
+                //{
+                //    Id = e.Id,
+                //    Description = e.Description,
+                //    Sum = e.Sum,
+                //    Location = e.Location,
+                //    Date = e.Date,
+                //    Currency = e.Currency,
+                //    Type = e.Type,
+                //    Comments = e.Comments.Select(c => new CommentDto()
+                //    {
+                //        Text = c.Text,
+                //    })
+                //}).SingleOrDefaultAsync(e => e.Id == id);
+
+               .Select(e => ExpenseDtoDetail.GetDtoFromExpense(e))
+               .AsEnumerable()
+               .FirstOrDefault(e => e.Id == id);
 
             if (expense == null)
             {
                 return NotFound();
             }
 
-            return expense;
+            return Ok(expense);
         }
 
         // PUT: api/Expenses/5

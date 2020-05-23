@@ -10,6 +10,16 @@ namespace ExpensesApp.Models
         {
         }
 
-        public DbSet<Expense> Expenses { get; set; } 
+        public DbSet<Expense> Expenses { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Expense>()
+                .HasMany(c => c.Comments)
+                .WithOne(e => e.Expense)
+                .OnDelete(DeleteBehavior.Cascade);
+        }
+
     }
 }

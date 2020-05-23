@@ -4,6 +4,8 @@ using System.Linq;
 using System.Reflection;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using AutoMapper;
+using ExpensesApp.Dto;
 using ExpensesApp.Models;
 using FluentValidation;
 using FluentValidation.AspNetCore;
@@ -43,6 +45,12 @@ namespace ExpensesApp
 
                  .AddFluentValidation(fv => fv.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly()));
             services.AddDbContext<ExpensesDbContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("ExpensesDbConnectionString")));
+
+            //services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            services.AddAutoMapper(typeof(Startup));
+            //services.AddControllersWithViews();
+
 
         }
 
