@@ -10,6 +10,7 @@ import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { ExpenseComponent } from './expenses/expense.component';
+import { ExpenseDetailComponent } from './expense-detail/expense-detail.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ExpenseComponent } from './expenses/expense.component';
     HomeComponent,
     CounterComponent,
     FetchDataComponent,
-    ExpenseComponent
+    ExpenseComponent,
+    ExpenseDetailComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -28,7 +30,8 @@ import { ExpenseComponent } from './expenses/expense.component';
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
-      { path: 'expense', component: ExpenseComponent }, 
+      { path: 'expenses', component: ExpenseComponent },
+      { path: 'expenses/:id', component: ExpenseDetailComponent }, 
     ])
   ],
   providers: [],

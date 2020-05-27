@@ -1,6 +1,6 @@
 <h1 id="tableLabel">Expenses</h1>
 
-<p>This component demonstrates fetching data from the server.</p>
+<p>Get a list of all expenses.</p>
 
 <p *ngIf="!expenses"><em>Loading...</em></p>
 
@@ -13,7 +13,8 @@
       <th>Date</th>
       <th>Currency</th>
       <th>Type</th>
-      <th>Number of comments</th>
+      <th>No of comm</th>
+      <th>Operations</th>
     </tr>
   </thead>
   <tbody>
@@ -25,6 +26,11 @@
       <td>{{ expense.currency }}</td>
       <td>{{ expense.type }}</td>
       <td>{{ expense.commentsNumber }}</td>
+      <td>
+        <div [routerLinkActive]="['link-active']">
+          <a class="nav-link text-dark" [routerLink]="['/expenses', expense.id]">Details</a>
+        </div>
+      </td>
     </tr>
   </tbody>
 </table>

@@ -1,0 +1,40 @@
+<h1 id="tableLabel">Expense Details</h1>
+
+<p *ngIf="!expense"><em>Loading...</em></p>
+
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="expense">
+  <tr>
+    <th>Description</th>
+    <td>{{ expense.description }}</td>
+  </tr>
+  <tr>
+    <th>Sum</th>
+    <td>{{ expense.sum }}</td>
+  </tr>
+  <tr>
+    <th>Location</th>
+    <td>{{ expense.location}}</td>
+  </tr>
+  <tr>
+    <th>Date</th>
+    <td>{{ expense.date}}</td>
+  </tr>
+  <tr>
+    <th>Currency</th>
+    <td>{{ expense.currency}}</td>
+  </tr>
+  <tr>
+    <th>Type</th>
+    <td>{{ expense.type}}</td>
+  </tr>
+  <tr>
+    <th>Comments</th>
+    <td >
+      <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="!expense.commets">
+        <tr *ngFor="let comment of expense.comments">
+          {{ comment.text}}
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
