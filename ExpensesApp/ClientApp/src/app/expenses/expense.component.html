@@ -1,0 +1,30 @@
+<h1 id="tableLabel">Expenses</h1>
+
+<p>This component demonstrates fetching data from the server.</p>
+
+<p *ngIf="!expenses"><em>Loading...</em></p>
+
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="expenses">
+  <thead>
+    <tr>
+      <th>Description</th>
+      <th>Sum</th>
+      <th>Location</th>
+      <th>Date</th>
+      <th>Currency</th>
+      <th>Type</th>
+      <th>Number of comments</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let expense of expenses">
+      <td>{{ expense.description }}</td>
+      <td>{{ expense.sum }}</td>
+      <td>{{ expense.location }}</td>
+      <td>{{ expense.date }}</td>
+      <td>{{ expense.currency }}</td>
+      <td>{{ expense.type }}</td>
+      <td>{{ expense.commentsNumber }}</td>
+    </tr>
+  </tbody>
+</table>
