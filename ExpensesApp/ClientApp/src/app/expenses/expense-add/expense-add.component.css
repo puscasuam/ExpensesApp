@@ -1,0 +1,11 @@
+.btnLeft {
+  position: absolute;
+  left: 100px;
+  background: green;
+}
+
+.btnRight {
+  position: absolute;
+  right: 100px;
+}
+

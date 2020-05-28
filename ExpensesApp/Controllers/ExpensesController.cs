@@ -68,26 +68,26 @@ namespace ExpensesApp.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Expense>> GetExpense(long id)
         {   
-            var expense =  _context.Expenses
+            var expense =  await _context.Expenses
                 .Include(e => e.Comments)
-                //.Select(e => new ExpenseDtoDetail()
-                //{
-                //    Id = e.Id,
-                //    Description = e.Description,
-                //    Sum = e.Sum,
-                //    Location = e.Location,
-                //    Date = e.Date,
-                //    Currency = e.Currency,
-                //    Type = e.Type,
-                //    Comments = e.Comments.Select(c => new CommentDto()
-                //    {
-                //        Text = c.Text,
-                //    })
-                //}).SingleOrDefaultAsync(e => e.Id == id);
+                .Select(e => new ExpenseDtoDetail()
+                {
+                    Id = e.Id,
+                    Description = e.Description,
+                    Sum = e.Sum,
+                    Location = e.Location,
+                    Date = e.Date,
+                    Currency = e.Currency,
+                    Type = e.Type,
+                    Comments = e.Comments.Select(c => new CommentDtoDetail()
+                    {
+                        Text = c.Text,
+                    })
+                }).SingleOrDefaultAsync(e => e.Id == id);
 
-               .Select(e => ExpenseDtoDetail.GetDtoFromExpense(e))
-               .AsEnumerable()
-               .FirstOrDefault(e => e.Id == id);
+            //.Select(e => ExpenseDtoDetail.GetDtoFromExpense(e))
+            //.AsEnumerable()
+            //.FirstOrDefault(e => e.Id == id);
 
             if (expense == null)
             {

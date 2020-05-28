@@ -98,6 +98,15 @@ namespace ExpensesApp
                 app.UseDeveloperExceptionPage();
             }
 
+            app.Use(async (ctx, next) =>
+            {
+                await next();
+                if (ctx.Response.StatusCode == 204)
+                {
+                    ctx.Response.ContentLength = 0;
+                }
+            });
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
@@ -105,6 +114,8 @@ namespace ExpensesApp
             app.UseAuthorization();
 
             app.UseSpaStaticFiles();
+
+            app.UseCors(options => options.WithOrigins("https://localhost:5001").AllowAnyMethod().AllowAnyHeader());
 
             app.UseEndpoints(endpoints =>
             {
