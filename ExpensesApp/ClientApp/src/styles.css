@@ -22,3 +22,6 @@ input.ng-invalid.ng-touched, select.ng.ng-invalid.ng-touched {
 .table {
     padding-bottom:100px;
 }
+
+html, body { height: 50%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

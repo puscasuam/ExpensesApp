@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +27,7 @@ namespace ExpensesApp.Models
                         Description = "2020, may, water",
                         Sum = 120,
                         Location = "Cluj",
-                        Date = new DateTime(2020, 05, 15),
+                        Date = new DateTime(2020,05,15),
                         Currency = Currency.RON , 
                         Type = Type.utilities
                     },

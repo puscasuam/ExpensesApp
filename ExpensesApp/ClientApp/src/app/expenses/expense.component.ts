@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute } from "@angular/router";
 import { Expense } from './shared/expense.model';
 import { ExpenseService } from './shared/expense.service';
 
@@ -11,8 +12,13 @@ import { ExpenseService } from './shared/expense.service';
 
 export class ExpenseComponent implements OnInit {
   public expenses: Expense[];
+  public expense: Expense;
+  public id: string;
+  searchType: string;
 
-  constructor(private expenseService: ExpenseService) { }
+  constructor(
+    private expenseService: ExpenseService,
+    private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.getAllExpenses();
@@ -24,6 +30,13 @@ export class ExpenseComponent implements OnInit {
       .subscribe(expenses => this.expenses = expenses);
   }
 
+  getExpense() {
+    var id = this.route.snapshot.paramMap.get('id');
+
+    this.expenseService.getExpense(id)
+      .subscribe(result => this.expense = result);
+  }
+
   delete(expenseId: number)
   {
     this.expenseService.delete(expenseId)
@@ -31,5 +44,7 @@ export class ExpenseComponent implements OnInit {
       err => console.log(err),
       () => console.log('expense deleted'));
   }
+
+
 }
 

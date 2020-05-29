@@ -1,13 +1,15 @@
-<h1 id="tableLabel"> Add new expense.</h1>
+<h1 id="tableLabel"> Update an expense.</h1>
 
-<div class="container">
+<p *ngIf="!expense"><em>Loading...</em></p>
+
+<div class="container" *ngIf="expense">
   <div class=" row">
     <div class=" col-10">
       <div class=" jumbotron">
         <form [formGroup]="expenseForm" (ngSubmit)="onSubmit(expenseForm)">
           <div class="form-group">
             <label>Description</label>
-            <input type="text" class=" form-control" formControlName="description" />
+            <input type="text" class=" form-control" formControlName="description"/>
             <!--<span *ngIf="form.get('description').errors?.required">Description is required</span>-->
             <span *ngIf="expenseForm.get('description').errors?.serverError">
               {{ expenseForm.get('sum').errors?.serverError }}
@@ -44,7 +46,6 @@
           <div class="form-group">
             <label>Currency</label>
             <select class=" form-control" formControlName="currency">
-              <option value="0">Select currency</option>
               <option *ngFor="let currencyType of currencyTypes" [value]="currencyType">
                 {{currencyType}}
               </option>
@@ -54,15 +55,14 @@
           <div class="form-group">
             <label>Type</label>
             <select class=" form-control" formControlName="type">
-              <option value="0">Select type</option>
               <option *ngFor="let typeType of typeTypes" [value]="typeType">
                 {{typeType}}
               </option>
             </select>
           </div>
 
-          <button class="btn btn-secondary btnLeft" type='submit' [disabled]="!expenseForm.valid"><mat-icon>save_alt</mat-icon></button>
-          <button (click)="goBack()" class="btn btn-secondary btnRight"><mat-icon>arrow_back</mat-icon></button>
+          <button class="btn btnLeft" type='submit' [disabled]="!expenseForm.valid"><mat-icon>save_alt</mat-icon></button>
+          <button (click)="goBack()" class="btn btnRight"><mat-icon>arrow_back</mat-icon></button>
 
         </form>
       </div>

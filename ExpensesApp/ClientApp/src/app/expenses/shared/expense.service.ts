@@ -36,4 +36,8 @@ export class ExpenseService {
     return this.httpClient.delete<Expense>(this.baseUrl + 'api/Expenses/' + id);
   }
 
+  update(id: number, expense: Expense): Observable<Expense> {
+    return this.httpClient.put<Expense>(this.baseUrl + 'api/Expenses/' + id, expense);
+  }
+
 }

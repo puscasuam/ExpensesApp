@@ -1,27 +1,23 @@
 <h1 id="tableLabel">Expenses</h1>
 
-<p>Get a list of all expenses.</p>
-
 <p *ngIf="!expenses"><em>Loading...</em></p>
-
+<br /><br />
 <table class=" table">
   <tr>
-    <th>Filter by type</th>
+    <th><mat-icon>search</mat-icon></th>
     <td>
-      <input class="type" type="text" />
-    </td>
-    <td></td>
-  </tr>
-  <tr>
-    <th>Filter by date</th>
-    <td>
-      <input class="fromDate" type="datetime" placeholder="from: 2020-06-12"/>
+      <input  class="fromDate" type="datetime" placeholder="Search from date: 2020-06-12"style="width: 250px"/>
     </td>
     <td>
-      <input class="toDate" type="datetime" placeholder="to: 2020-06-12"/>
+      <input  class="toDate" type="datetime" placeholder="Search to date: 2020-06-12" style="width: 250px"/>
+    </td>
+    <td>
+      <input  class="type" type="text" placeholder="Search by type" [(ngModel)]="searchType" style="width: 250px"/>
     </td>
   </tr>
 </table>
+<br /><br />
+
 
 <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="expenses">
   <thead>
@@ -37,25 +33,31 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let expense of expenses">
-      <td>{{ expense.description }}</td>
+    <tr *ngFor="let expense of expenses | typeFilter: searchType">
+      <td>{{ expense.description}}</td>
       <td>{{ expense.sum }}</td>
       <td>{{ expense.location }}</td>
-      <td>{{ expense.date }}</td>
+      <td>{{ expense.date | date: 'y-MM-dd' }}</td>
       <td>{{ expense.currency }}</td>
       <td>{{ expense.type }}</td>
       <td>{{ expense.commentsNumber }}</td>
       <td>
+
         <div [routerLinkActive]="['link-active']">
-          <a class="nav-link text-dark" [routerLink]="['/expenses', expense.id]"><img src="../home/images/expense.png"></a>
+
+          <button class="btn-router" [routerLink]="['/expenses', expense.id]"><mat-icon>more</mat-icon></button>
+          <button class="btn-router" [routerLink]="['/expense-add', expense.id]"><mat-icon>edit</mat-icon></button>
+          <button class="btn-router" (click)="delete(expense.id)"><mat-icon>delete</mat-icon></button>
         </div>
-        <button (click)="delete(expense.id)">Delete</button>
       </td>
     </tr>
   </tbody>
 </table>
 
 
-<button class="btn btn-secondary mr-5" [routerLink]="['/expense-add']">Add new expense</button>
+<div [routerLinkActive]="['link-active']">
+  <a class="nav-link text-dark" [routerLink]="['/expense-add/0']"><mat-icon>add</mat-icon></a>
+</div>
+
 
 

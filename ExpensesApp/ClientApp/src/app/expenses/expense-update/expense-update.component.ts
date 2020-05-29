@@ -3,36 +3,45 @@ import { FormsModule, ReactiveFormsModule, FormArray, FormBuilder, Validators, F
 import { CurrencyType } from '../shared/enums/currencyTypes.enum';
 import { TypeType } from '../shared/enums/typeTypes.enum';
 import { Location } from '@angular/common';
-import { ActivatedRoute } from "@angular/router";
 
 import { Expense } from '../shared/expense.model';
 import { ExpenseService } from '../shared/expense.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-expense-add',
-  templateUrl: './expense-add.component.html',
-  styleUrls: ['./expense-add.component.css']
+  selector: 'app-expense-update',
+  templateUrl: './expense-update.component.html',
+  styleUrls: ['./expense-update.component.css']
 })
 
-export class ExpenseAddComponent implements OnInit {
+export class ExpenseUpdateComponent implements OnInit {
+  private expense: Expense;
+  private id: string;
   private expenseForm: FormGroup;
   public currencyTypes = Object.values(CurrencyType);
   public typeTypes = Object.values(TypeType);
-  public expense: Expense;
-  public id: string;
 
 
   constructor(
     private expenseService: ExpenseService,
     private location: Location,
     private fb: FormBuilder,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit() {
-    this.addExpenseForm();
+    this.expense;
+    this.updateExpenseForm();
   }
 
-  addExpenseForm() {
+  getExpense() {
+    var id = this.route.snapshot.paramMap.get('id');
+
+    this.expenseService.getExpense(id)
+      .subscribe(result => this.expense = result);
+  }
+
+  updateExpenseForm() {
     this.expenseForm = this.fb.group({
       description: ['', Validators.required],
       sum: [0, Validators.min(0)],
@@ -46,15 +55,6 @@ export class ExpenseAddComponent implements OnInit {
   goBack() {
     this.location.back();
   }
-
-
-  getExpense() {
-    var id = this.route.snapshot.paramMap.get('id');
-
-    this.expenseService.getExpense(id)
-      .subscribe(result => this.expense = result);
-  }
-
 
   onSubmit({ value, valid }) {
     if (valid) {
