@@ -15,6 +15,8 @@ export class ExpenseComponent implements OnInit {
   public expense: Expense;
   public id: string;
   searchType: string;
+  searchStartDate: string;
+  searchEndDate: string;
 
   constructor(
     private expenseService: ExpenseService,

@@ -6,10 +6,10 @@
   <tr>
     <th><mat-icon>search</mat-icon></th>
     <td>
-      <input  class="fromDate" type="datetime" placeholder="Search from date: 2020-06-12"style="width: 250px"/>
+      <input  class="fromDate" type="datetime" placeholder="Search from date: 2020-06-12" [(ngModel)]="searchStartDate" style="width: 250px"/>
     </td>
     <td>
-      <input  class="toDate" type="datetime" placeholder="Search to date: 2020-06-12" style="width: 250px"/>
+      <input  class="toDate" type="datetime" placeholder="Search to date: 2020-06-12" [(ngModel)]="searchEndDate" style="width: 250px"/>
     </td>
     <td>
       <input  class="type" type="text" placeholder="Search by type" [(ngModel)]="searchType" style="width: 250px"/>
@@ -33,7 +33,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let expense of expenses | typeFilter: searchType">
+    <tr *ngFor="let expense of expenses | expenseFilter: searchType : searchStartDate : searchEndDate">
       <td>{{ expense.description}}</td>
       <td>{{ expense.sum }}</td>
       <td>{{ expense.location }}</td>
