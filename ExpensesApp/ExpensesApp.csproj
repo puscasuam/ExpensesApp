@@ -36,10 +36,6 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.2" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.4.1" />
   </ItemGroup>
-	
-  <ItemGroup>
-    <Folder Include="ClientApp\src\app\home\images\" />
-  </ItemGroup>
 
 
 </Project>

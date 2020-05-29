@@ -4,6 +4,25 @@
 
 <p *ngIf="!expenses"><em>Loading...</em></p>
 
+<table class=" table">
+  <tr>
+    <th>Filter by type</th>
+    <td>
+      <input class="type" type="text" />
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <th>Filter by date</th>
+    <td>
+      <input class="fromDate" type="datetime" placeholder="from: 2020-06-12"/>
+    </td>
+    <td>
+      <input class="toDate" type="datetime" placeholder="to: 2020-06-12"/>
+    </td>
+  </tr>
+</table>
+
 <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="expenses">
   <thead>
     <tr>
@@ -28,8 +47,9 @@
       <td>{{ expense.commentsNumber }}</td>
       <td>
         <div [routerLinkActive]="['link-active']">
-          <a class="nav-link text-dark" [routerLink]="['/expenses', expense.id]">Details</a>
+          <a class="nav-link text-dark" [routerLink]="['/expenses', expense.id]"><img src="../home/images/expense.png"></a>
         </div>
+        <button (click)="delete(expense.id)">Delete</button>
       </td>
     </tr>
   </tbody>

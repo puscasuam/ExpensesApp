@@ -31,4 +31,9 @@ export class ExpenseService {
     return this.httpClient.post<Expense>(this.baseUrl + 'api/Expenses', expense);
   }
 
+  delete(id: number): Observable<Expense>
+  {
+    return this.httpClient.delete<Expense>(this.baseUrl + 'api/Expenses/' + id);
+  }
+
 }

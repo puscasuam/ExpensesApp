@@ -23,5 +23,13 @@ export class ExpenseComponent implements OnInit {
     this.expenseService.getAllExpenses()
       .subscribe(expenses => this.expenses = expenses);
   }
+
+  delete(expenseId: number)
+  {
+    this.expenseService.delete(expenseId)
+      .subscribe(_ => this.getAllExpenses(),
+      err => console.log(err),
+      () => console.log('expense deleted'));
+  }
 }
 
