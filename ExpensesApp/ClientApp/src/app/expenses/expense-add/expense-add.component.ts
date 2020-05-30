@@ -30,6 +30,7 @@ export class ExpenseAddComponent implements OnInit {
 
   ngOnInit() {
     this.addExpenseForm();
+    this.getExpense();
   }
 
   addExpenseForm() {
@@ -41,46 +42,89 @@ export class ExpenseAddComponent implements OnInit {
       currency: [0],
       type: [0]
     });
-  }
 
-  goBack() {
-    this.location.back();
+    //if (this.expenseForm && this.expense) {
+    //  this.expenseForm.setValue({
+    //    description: this.expense.description,
+    //    sum: this.expense.sum,
+    //    location: this.expense.location,
+    //    date: this.expense.date,
+    //    currency: this.expense.currency,
+    //    type: this.expense.type
+    //  });
+    //}
   }
-
 
   getExpense() {
-    var id = this.route.snapshot.paramMap.get('id');
+    var id = parseInt(this.route.snapshot.paramMap.get('id'));
 
-    this.expenseService.getExpense(id)
-      .subscribe(result => this.expense = result);
+    if (id !== 0) {
+      this.expenseService.getExpense(id)
+        .subscribe(result => {
+          this.expense = result;
+
+          if (this.expense !== null) {
+            this.expenseForm.setValue({
+              description: this.expense.description,
+              sum: this.expense.sum,
+              location: this.expense.location,
+              date: this.expense.date,
+              currency: this.expense.currency,
+              type: this.expense.type
+            });
+          }
+        });
+    }
   }
 
 
   onSubmit({ value, valid }) {
     if (valid) {
-      this.expenseService.add(value)
-        .subscribe(
-          _ => this.location.back(),
-          err => {
+      var id = parseInt(this.route.snapshot.paramMap.get('id'));
 
-            console.log(err);
-            const validationErrors = err.error.errors;
+      if (id === 0) {
+        this.expenseService.add(value)
+          .subscribe(
+            _ => this.location.back(),
+            err => {
+              const validationErrors = err.error.errors;
 
-            Object.keys(validationErrors).forEach(prop => {
-              const formControl = this.expenseForm.get(prop.toLowerCase());
-              if (formControl) {
+              Object.keys(validationErrors).forEach(prop => {
+                const formControl = this.expenseForm.get(prop.toLowerCase());
+                if (formControl) {
 
-                console.log(prop.toLowerCase);
-                console.log(prop);
+                  formControl.setErrors({
+                    serverError: validationErrors[prop][0]
+                  });
+                }
+              });
+            }
+          );
+      } else {
+        value.id = id;
+        this.expenseService.update(id, value)
+          .subscribe(
+            _ => this.location.back(),
+            err => {
+              const validationErrors = err.error.errors;
 
-                formControl.setErrors({
-                  serverError: validationErrors[prop][0]
-                });
-              }
-            });
-          }
-        );
+              Object.keys(validationErrors).forEach(prop => {
+                const formControl = this.expenseForm.get(prop.toLowerCase());
+                if (formControl) {
+
+                  formControl.setErrors({
+                    serverError: validationErrors[prop][0]
+                  });
+                }
+              });
+            }
+          );
+      }
+
     }
   }
 
+  goBack() {
+    this.location.back();
+  }
 }

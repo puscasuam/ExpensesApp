@@ -42,12 +42,10 @@
       <td>{{ expense.type }}</td>
       <td>{{ expense.commentsNumber }}</td>
       <td>
-
         <div [routerLinkActive]="['link-active']">
-
-          <button class="btn-router" [routerLink]="['/expenses', expense.id]"><mat-icon>more</mat-icon></button>
-          <button class="btn-router" [routerLink]="['/expense-add', expense.id]"><mat-icon>edit</mat-icon></button>
-          <button class="btn-router" (click)="delete(expense.id)"><mat-icon>delete</mat-icon></button>
+          <button class="btn-link"  [routerLink]="['/expenses', expense.id]"><mat-icon>more</mat-icon></button>
+          <button class="btn-link" [routerLink]="['/expense-add', expense.id]"><mat-icon>edit</mat-icon></button>
+          <button class="btn-link" (click)="delete(expense.id)"><mat-icon>delete</mat-icon></button>
         </div>
       </td>
     </tr>

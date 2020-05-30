@@ -10,9 +10,8 @@ code {
 }
 
 .btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+  background-color: none;
+  border-color: none;
 }
 
 input.ng-invalid.ng-touched, select.ng.ng-invalid.ng-touched {

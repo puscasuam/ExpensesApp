@@ -1,11 +1,18 @@
 .btnLeft {
   position: absolute;
   left: 100px;
-  background: green;
+  background: none;
+  border: none;
 }
 
 .btnRight {
   position: absolute;
   right: 100px;
+  background: none;
+  border: none;
+}
+
+.mat-icon {
+    color: black;
 }
 

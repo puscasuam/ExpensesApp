@@ -7,7 +7,8 @@ import { ExpenseService } from './shared/expense.service';
 
 @Component({
   selector: 'app-expense',
-  templateUrl: './expense.component.html'
+  templateUrl: './expense.component.html',
+  styleUrls: ['./expense.component.css']
 })
 
 export class ExpenseComponent implements OnInit {
@@ -33,7 +34,7 @@ export class ExpenseComponent implements OnInit {
   }
 
   getExpense() {
-    var id = this.route.snapshot.paramMap.get('id');
+    var id = parseInt(this.route.snapshot.paramMap.get('id'));
 
     this.expenseService.getExpense(id)
       .subscribe(result => this.expense = result);
@@ -41,10 +42,13 @@ export class ExpenseComponent implements OnInit {
 
   delete(expenseId: number)
   {
-    this.expenseService.delete(expenseId)
-      .subscribe(_ => this.getAllExpenses(),
-      err => console.log(err),
-      () => console.log('expense deleted'));
+    if (confirm("Are you sure you want to delete the expense?")) {
+      this.expenseService.delete(expenseId)
+        .subscribe(_ => this.getAllExpenses(),
+          err => console.log(err),
+          () => console.log('expense deleted'));
+    }
+   
   }
 
 

@@ -3,8 +3,6 @@ import { ActivatedRoute } from "@angular/router";
 import { Expense } from '../shared/expense.model';
 import { ExpenseService } from '../shared/expense.service';
 
-
-
 @Component({
   selector: 'app-expense-detail',
   templateUrl: './expense-detail.component.html',
@@ -14,7 +12,6 @@ export class ExpenseDetailComponent implements OnInit
 {
   public expense: Expense;
   public id: string;
-
 
   constructor
     (private expenseService: ExpenseService,
@@ -27,14 +24,12 @@ export class ExpenseDetailComponent implements OnInit
 
   getExpense()
   {
-    var id = this.route.snapshot.paramMap.get('id');
+    var id = parseInt(this.route.snapshot.paramMap.get('id'));
 
     this.expenseService.getExpense(id)
       .subscribe(result => this.expense = result);
   }
-
 }
-
 
 interface Comment {
   text: string;

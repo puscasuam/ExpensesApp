@@ -21,7 +21,7 @@ export class ExpenseService {
     return this.httpClient.get<Array<Expense>>(this.baseUrl + 'api/Expenses');
   }
 
-  getExpense(id: string): Observable<Expense>
+  getExpense(id: number): Observable<Expense>
   {
     return this.httpClient.get<Expense>(this.baseUrl + 'api/Expenses/' + id);
   }

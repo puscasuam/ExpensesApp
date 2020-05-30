@@ -33,6 +33,7 @@
       <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="!expense.commets">
         <tr *ngFor="let comment of expense.comments">
           {{ comment.text}}
+          <mat-icon *ngIf="comment.important == false">star_border</mat-icon>
         </tr>
       </table>
     </td>
