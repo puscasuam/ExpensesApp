@@ -79,6 +79,9 @@ export class ExpenseAddComponent implements OnInit {
 
 
   onSubmit({ value, valid }) {
+
+    console.log("in locul gresit");
+
     if (valid) {
       var id = parseInt(this.route.snapshot.paramMap.get('id'));
 

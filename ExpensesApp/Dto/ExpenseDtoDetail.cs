@@ -32,7 +32,9 @@ namespace ExpensesApp.Dto
                 Type = expense.Type,
                 Comments = expense.Comments.Select(c => new CommentDtoDetail()
                 {
+                    Id = c.Id,
                     Text = c.Text,
+                    Important = c.Important
                 })
 
             };

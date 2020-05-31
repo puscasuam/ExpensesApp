@@ -47,18 +47,18 @@ namespace ExpensesApp.Controllers
         /// <param name="id">The id of the selected comment.</param>
         /// <returns>A comment.</returns>
         [HttpGet("{id}")]
-        public async Task<ActionResult<Comment>> GetComment(long id)
+        public async Task<ActionResult<CommentDtoGet>> GetComment(long id)
         {
             var comment = await _context.Comments
                 .Include(c => c.Expense)
-                .Select(c => new
+                .Select(c => new CommentDtoGet()
                 {
-                    c.Id,
-                    c.Text,
-                    c.Important,
-                    ExpnseId = c.Expense.Id
+                   Id = c.Id,
+                   Text = c.Text,
+                   Important = c.Important,
+                   ExpenseId = c.ExpenseId,
                 })
-                .FirstOrDefaultAsync(c => c.Id == id);
+                .SingleOrDefaultAsync(c => c.Id == id);
 
 
             if (comment == null)

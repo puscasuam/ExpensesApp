@@ -1,7 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
 import { Expense } from '../shared/expense.model';
+import { Comment } from '../../comments/shared/comment.model';
 import { ExpenseService } from '../shared/expense.service';
+import { CommentService } from '../../comments/shared/comment.service';
 
 @Component({
   selector: 'app-expense-detail',
@@ -11,11 +13,14 @@ import { ExpenseService } from '../shared/expense.service';
 export class ExpenseDetailComponent implements OnInit
 {
   public expense: Expense;
+  public comment: Comment;
+  public comments: Comment[];
   public id: string;
 
-  constructor
-    (private expenseService: ExpenseService,
-     private route: ActivatedRoute) { }
+  constructor(
+    private expenseService: ExpenseService,
+    private commentService: CommentService,
+    private route: ActivatedRoute) { }
 
   ngOnInit()
   {
@@ -29,8 +34,14 @@ export class ExpenseDetailComponent implements OnInit
     this.expenseService.getExpense(id)
       .subscribe(result => this.expense = result);
   }
-}
 
-interface Comment {
-  text: string;
+  deleteComment(commentId: number) {
+    if (confirm("Are you sure you want to delete the comment?")) {
+      this.commentService.delete(commentId)
+        .subscribe(_ => this.getExpense(),
+          err => console.log(err),
+          () => console.log('expense deleted'));
+    }
+  }
+
 }

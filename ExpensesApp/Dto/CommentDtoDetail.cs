@@ -8,6 +8,7 @@ namespace ExpensesApp.Dto
 {
     public class CommentDtoDetail
     {
+        public long Id { get; set; }
         public Boolean Important { get; set; }
         public string Text { get; set; }
     }

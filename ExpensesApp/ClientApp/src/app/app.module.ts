@@ -14,6 +14,7 @@ import { ExpenseDetailComponent } from './expenses/expense-detail/expense-detail
 import { ExpenseAddComponent } from './expenses/expense-add/expense-add.component';
 import { ExpenseFilterPipe } from './expenses/expense-filter.pipe';
 import { CommentsComponent } from './comments/comments.component';
+import { CommentAddComponent } from './comments/comment-add/comment-add.component';
 
 
 
@@ -27,6 +28,7 @@ import { CommentsComponent } from './comments/comments.component';
     ExpenseDetailComponent,
     ExpenseAddComponent,
     CommentsComponent,
+    CommentAddComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -39,6 +41,8 @@ import { CommentsComponent } from './comments/comments.component';
       { path: 'expenses', component: ExpenseComponent },
       { path: 'expenses/:id', component: ExpenseDetailComponent },
       { path: 'expense-add/:id', component: ExpenseAddComponent },
+
+      { path: 'expenses/:eid/comment-add/:cid', component: CommentAddComponent },
     ]),
     BrowserAnimationsModule
   ],

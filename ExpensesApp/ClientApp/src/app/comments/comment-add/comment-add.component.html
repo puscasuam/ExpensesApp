@@ -1,0 +1,37 @@
+<h1 id="tableLabel"> Add or edit new comment.</h1>
+
+<div class="container">
+  <div class=" row">
+    <div class=" col-10">
+      <div class=" jumbotron">
+        <form [formGroup]="commentForm" (ngSubmit)="onSubmit(commentForm)">
+          <div class="form-group">
+            <label>Text</label>
+            <input type="text" class=" form-control" formControlName="text" />
+            <span *ngIf="commentForm.get('text').errors?.serverError">
+              {{ commentForm.get('text').errors?.serverError }}
+            </span>
+          </div>
+
+          <div class="form-group">
+            <label>Important</label>
+            <select class=" form-control" formControlName="important">
+              <option value="0">Select importance</option>
+              <option *ngFor="let importantType of importantTypes" [value]="importantType">
+                {{importantType}}
+              </option>
+            </select>
+          </div>
+
+          <button class="btn btn-secondary btnLeft" type='submit' [disabled]="!commentForm.valid"><mat-icon>save_alt</mat-icon></button>
+          <button class="btn btn-secondary btnRight" (click)="goBack()"><mat-icon>arrow_back</mat-icon></button>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+

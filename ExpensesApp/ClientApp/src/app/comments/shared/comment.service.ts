@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from "@angular/router";
+import { Comment } from './comment.model';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,7 @@ export class CommentService {
     return this.httpClient.get<Array<Comment>>(this.baseUrl + 'api/Comments');
   }
 
-  getComment(id: string): Observable<Comment>
+  getComment(id: number): Observable<Comment>
   {
     return this.httpClient.get<Comment>(this.baseUrl + 'api/Comments/' + id);
   }
@@ -36,7 +37,7 @@ export class CommentService {
     return this.httpClient.delete<Comment>(this.baseUrl + 'api/Comments/' + id);
   }
 
-  update(id: string, comment: Comment): Observable<Comment> {
+  update(id: number, comment: Comment): Observable<Comment> {
     return this.httpClient.put<Comment>(this.baseUrl + 'api/Comments/' + id, comment);
   }
 

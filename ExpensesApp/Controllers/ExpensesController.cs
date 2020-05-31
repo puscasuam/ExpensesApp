@@ -81,6 +81,7 @@ namespace ExpensesApp.Controllers
                     Type = e.Type,
                     Comments = e.Comments.Select(c => new CommentDtoDetail()
                     {
+                        Id = c.Id,
                         Important =c.Important,
                         Text = c.Text,
                     })
