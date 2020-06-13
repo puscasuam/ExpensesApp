@@ -40,7 +40,7 @@ export class ExpenseDetailComponent implements OnInit
       this.commentService.delete(commentId)
         .subscribe(_ => this.getExpense(),
           err => console.log(err),
-          () => console.log('expense deleted'));
+          () => console.log('comment deleted'));
     }
   }
 
