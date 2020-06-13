@@ -23,6 +23,7 @@ export class ExpenseService {
 
   getExpense(id: number): Observable<Expense>
   {
+    //return this.httpClient.get<Expense>('${this.baseUrl}api/Expenses/${id}');
     return this.httpClient.get<Expense>(this.baseUrl + 'api/Expenses/' + id);
   }
 

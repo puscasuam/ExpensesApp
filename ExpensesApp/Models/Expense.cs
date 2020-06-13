@@ -35,6 +35,7 @@ namespace ExpensesApp.Models
         public DateTime Date { get; set; }
         public Currency Currency { get; set; }
         public Type Type { get; set; }
+        public User AddedBy { get; set; }
         public List<Comment> Comments { get; set; }
     }
 }

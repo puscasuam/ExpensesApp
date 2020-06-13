@@ -16,5 +16,7 @@ namespace ExpensesApp.Models
         
         [JsonIgnore]
         public Expense Expense { get; set; }
+
+        public User AddedBy { get; set; }
     }
 }

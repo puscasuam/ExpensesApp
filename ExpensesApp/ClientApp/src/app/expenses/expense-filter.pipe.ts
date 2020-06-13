@@ -37,8 +37,6 @@ export class ExpenseFilterPipe implements PipeTransform {
       });
     }
 
-   
-
     return expenses;
   }
 }

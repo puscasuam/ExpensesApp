@@ -3,7 +3,7 @@ import { FormsModule, ReactiveFormsModule, FormArray, FormBuilder, Validators, F
 import { CurrencyType } from '../shared/enums/currencyTypes.enum';
 import { TypeType } from '../shared/enums/typeTypes.enum';
 import { Location } from '@angular/common';
-import { ActivatedRoute } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 
 import { Expense } from '../shared/expense.model';
 import { ExpenseService } from '../shared/expense.service';
@@ -15,17 +15,20 @@ import { ExpenseService } from '../shared/expense.service';
 })
 
 export class ExpenseAddComponent implements OnInit {
+
+  private routerLink: string = '../list';
+
   private expenseForm: FormGroup;
   public currencyTypes = Object.values(CurrencyType);
   public typeTypes = Object.values(TypeType);
   public expense: Expense;
   public id: string;
 
-
   constructor(
     private expenseService: ExpenseService,
     private location: Location,
     private fb: FormBuilder,
+    private router: Router,
     private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -80,15 +83,13 @@ export class ExpenseAddComponent implements OnInit {
 
   onSubmit({ value, valid }) {
 
-    console.log("in locul gresit");
-
     if (valid) {
       var id = parseInt(this.route.snapshot.paramMap.get('id'));
 
       if (id === 0) {
         this.expenseService.add(value)
           .subscribe(
-            _ => this.location.back(),
+            _ => this.router.navigate(['/list']),
             err => {
               const validationErrors = err.error.errors;
 
@@ -107,7 +108,7 @@ export class ExpenseAddComponent implements OnInit {
         value.id = id;
         this.expenseService.update(id, value)
           .subscribe(
-            _ => this.location.back(),
+            _ => this.router.navigate(['/list']),
             err => {
               const validationErrors = err.error.errors;
 
@@ -127,7 +128,7 @@ export class ExpenseAddComponent implements OnInit {
     }
   }
 
-  goBack() {
-    this.location.back();
-  }
+  //goBack() {
+  //  this.location.back();
+  //}
 }
