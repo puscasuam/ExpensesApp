@@ -11,11 +11,11 @@ const routes: Routes = [
   {
     path: '', component: ExpenseComponent,
     children: [
-      { path: '', redirectTo: 'list', pathMatch: 'prefix' }, 
+      { path: '', redirectTo: 'list', pathMatch: 'full' }, 
       { path: 'list', component: ExpenseListComponent },
       { path: 'list/:id', component: ExpenseDetailComponent },
       { path: 'add/:id', component: ExpenseAddComponent },
-      { path: 'add/:eid/comment-add/:cid', component: CommentAddComponent },
+      { path: 'list/add/:eid/comment-add/:cid', component: CommentAddComponent },
     ]
   }
 ];

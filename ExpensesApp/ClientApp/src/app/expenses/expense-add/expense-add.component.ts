@@ -15,9 +15,6 @@ import { ExpenseService } from '../shared/expense.service';
 })
 
 export class ExpenseAddComponent implements OnInit {
-
-  private routerLink: string = '../list';
-
   private expenseForm: FormGroup;
   public currencyTypes = Object.values(CurrencyType);
   public typeTypes = Object.values(TypeType);
@@ -80,7 +77,6 @@ export class ExpenseAddComponent implements OnInit {
     }
   }
 
-
   onSubmit({ value, valid }) {
 
     if (valid) {
@@ -89,7 +85,7 @@ export class ExpenseAddComponent implements OnInit {
       if (id === 0) {
         this.expenseService.add(value)
           .subscribe(
-            _ => this.router.navigate(['/list']),
+            _ => this.router.navigate(['/expenses']),
             err => {
               const validationErrors = err.error.errors;
 
@@ -108,7 +104,7 @@ export class ExpenseAddComponent implements OnInit {
         value.id = id;
         this.expenseService.update(id, value)
           .subscribe(
-            _ => this.router.navigate(['/list']),
+            _ => this.router.navigate(['/expenses']),
             err => {
               const validationErrors = err.error.errors;
 
@@ -128,7 +124,8 @@ export class ExpenseAddComponent implements OnInit {
     }
   }
 
-  //goBack() {
-  //  this.location.back();
-  //}
+
+  goBack() {
+    this.location.back();
+  }
 }

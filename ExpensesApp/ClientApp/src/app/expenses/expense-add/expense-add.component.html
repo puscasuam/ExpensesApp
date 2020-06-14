@@ -62,8 +62,9 @@
           </div>
 
           <button class="btn btn-secondary btnLeft" type='submit' [disabled]="!expenseForm.valid"><mat-icon>save_alt</mat-icon></button>
-          <!--<button class="btn btn-secondary btnRight" [routerLink]='routerLink'><mat-icon>arrow_back</mat-icon></button>-->
-          <button class="btn-link" [routerLink]="['../../']"><mat-icon>arrow_back</mat-icon></button>
+          <!--<button class="btn btn-secondary btnRight" [routerLink]="routerLink"><mat-icon>arrow_back</mat-icon></button>
+          <button class="btn-link" [routerLink]="['../../']"><mat-icon>arrow_back</mat-icon></button>-->
+          <button class="btn btn-secondary btnRight" (click)="goBack()"><mat-icon>arrow_back</mat-icon></button>
 
         </form>
       </div>
