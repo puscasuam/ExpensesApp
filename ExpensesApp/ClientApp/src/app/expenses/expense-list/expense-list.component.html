@@ -21,10 +21,13 @@
 <br />
 
 
-<table mat-table [dataSource]="expenses | expenseFilter: searchType : searchStartDate : searchEndDate" class="mat-elevation-z8" *ngIf="expenses">
+<p>Current page: {{expenses?.currentPage}}</p>
+<p>Last page: {{expenses?.totalPages}}</p>
+
+<table mat-table [dataSource]="expenses?.items | expenseFilter: searchType : searchStartDate : searchEndDate" class="mat-elevation-z8" *ngIf="expenses">
 
   <ng-container matColumnDef="description">
-    <th mat-header-cell *matHeaderCellDef style="width:15%"> Description </th>
+    <th mat-header-cell *matHeaderCellDef style="width:18%"> Description </th>
     <td mat-cell *matCellDef="let expense"> {{expense.description}} </td>
   </ng-container>
 

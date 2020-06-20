@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
 import { Expense } from '../shared/expense.model';
 import { ExpenseService } from '../shared/expense.service';
+import { PaginatedExpenses } from '../shared/paginatedExpenses.model';
 
 
 @Component({
@@ -13,7 +14,7 @@ import { ExpenseService } from '../shared/expense.service';
 export class ExpenseListComponent implements OnInit {
   public displayedColumns: string[] = ['description', 'sum', 'location', 'date', 'currency', 'type', 'noOfComm','action'];
 
-  public expenses: Expense[];
+  public expenses: PaginatedExpenses ;
   public expense: Expense;
   public id: string;
   searchType: string;

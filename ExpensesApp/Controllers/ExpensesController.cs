@@ -9,6 +9,7 @@ using ExpensesApp.Dto;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authorization;
+using ExpensesApp.Dto.Collections;
 
 namespace ExpensesApp.Controllers
 {
@@ -32,13 +33,17 @@ namespace ExpensesApp.Controllers
         /// <param name="from">Filter expenses added after this date time (inclusive). Leave blank for no filter.</param>
         /// <param name="to">Filter expenses added before this date time (inclusive). Leave blank for no filter.</param>
         /// <param name="type">Filter expenses by type. Leave empty for all.</param>
+        /// <param name="page">The page of results, starting from 0.</param>
+        /// <param name="itemsPerPage">The number of expenses to display per page.</param>
         /// <returns>A list of Expenses.</returns>
         [AllowAnonymous]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ExpenseDtoGet>>> GetExpenses(
+        public async Task<IActionResult> GetExpenses(
             [FromQuery]DateTime? from = null, 
             [FromQuery]DateTime? to = null,
-            [FromQuery]Models.Type? type = null)
+            [FromQuery]Models.Type? type = null,
+            [FromQuery]int page = 0,
+            [FromQuery]int itemsPerPage = 15)
         {
             IQueryable<Expense> result = _context.Expenses.Include(e => e.Comments);
 
@@ -56,9 +61,16 @@ namespace ExpensesApp.Controllers
                 result = result.Where(f => f.Date <= to);
             }
 
-            var resultList = await result.Select(e => ExpenseDtoGet.GetDtoFromExpense(e)).ToListAsync();
+            var resultList = await result
+                .Skip(page * itemsPerPage)
+                .Take(itemsPerPage)
+                .Select(e => ExpenseDtoGet.GetDtoFromExpense(e))
+                .ToListAsync();
 
-            return resultList;
+            var PaginatedList = new PaginatedList<ExpenseDtoGet>(page, await result.CountAsync(), itemsPerPage);
+            PaginatedList.Items.AddRange(resultList);
+
+            return Ok(PaginatedList);
         }
 
         // GET: api/Expenses/5

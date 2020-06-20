@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Expense } from './expense.model';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from "@angular/router";
+import { PaginatedExpenses } from './paginatedExpenses.model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,9 +17,9 @@ export class ExpenseService {
     @Inject('BASE_URL') private baseUrl: string,
   ) {}
 
-  getAllExpenses(): Observable<Expense[]>
+  getAllExpenses()
   {
-    return this.httpClient.get<Array<Expense>>(this.baseUrl + 'api/Expenses');
+    return this.httpClient.get<PaginatedExpenses>(this.baseUrl + 'api/Expenses');
   }
 
   getExpense(id: number): Observable<Expense>
