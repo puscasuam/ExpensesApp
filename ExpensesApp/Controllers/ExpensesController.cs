@@ -8,6 +8,7 @@ using ExpensesApp.Models;
 using ExpensesApp.Dto;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ExpensesApp.Controllers
 {
@@ -32,6 +33,7 @@ namespace ExpensesApp.Controllers
         /// <param name="to">Filter expenses added before this date time (inclusive). Leave blank for no filter.</param>
         /// <param name="type">Filter expenses by type. Leave empty for all.</param>
         /// <returns>A list of Expenses.</returns>
+        [AllowAnonymous]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ExpenseDtoGet>>> GetExpenses(
             [FromQuery]DateTime? from = null, 
@@ -67,7 +69,11 @@ namespace ExpensesApp.Controllers
         /// <returns>An Expense.</returns>
         [HttpGet("{id}")]
         public async Task<ActionResult<Expense>> GetExpense(long id)
-        {   
+        {
+            //var identity = User.Identity;
+            //if (identity.IsAuthenticated) { 
+            //};
+
             var expense =  await _context.Expenses
                 .Include(e => e.Comments)
                 .Select(e => new ExpenseDtoDetail()

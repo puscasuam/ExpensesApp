@@ -10,7 +10,7 @@
             <input type="text" class=" form-control" formControlName="description" />
             <!--<span *ngIf="form.get('description').errors?.required">Description is required</span>-->
             <span *ngIf="expenseForm.get('description').errors?.serverError">
-              {{ expenseForm.get('sum').errors?.serverError }}
+              {{ expenseForm.get('description').errors?.serverError }}
             </span>
           </div>
 
@@ -28,7 +28,7 @@
             <input type="text" class=" form-control" placeholder="Cluj-Napoca" formControlName="location" />
             <!--<span *ngIf="form.get('location').errors?.required">Location is required</span>-->
             <span *ngIf="expenseForm.get('location').errors?.serverError">
-              {{ expenseForm.get('sum').errors?.serverError }}
+              {{ expenseForm.get('location').errors?.serverError }}
             </span>
           </div>
 

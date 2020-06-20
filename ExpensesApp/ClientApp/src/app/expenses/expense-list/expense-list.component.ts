@@ -11,6 +11,8 @@ import { ExpenseService } from '../shared/expense.service';
 })
 
 export class ExpenseListComponent implements OnInit {
+  public displayedColumns: string[] = ['description', 'sum', 'location', 'date', 'currency', 'type', 'noOfComm','action'];
+
   public expenses: Expense[];
   public expense: Expense;
   public id: string;
@@ -29,6 +31,7 @@ export class ExpenseListComponent implements OnInit {
   getAllExpenses() {
     this.expenseService.getAllExpenses()
       .subscribe(expenses => this.expenses = expenses);
+    console.log(this.expenses);
 
   }
 

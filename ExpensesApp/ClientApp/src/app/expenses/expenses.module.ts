@@ -1,15 +1,11 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { MatIconModule } from '@angular/material';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 import { ExpensesRoutingModule } from "./expenses-routing.module";
-
 import { ExpenseService } from "./shared/expense.service";
-
 import { ExpenseFilterPipe } from "./expense-filter.pipe";
+import { AngularMaterialModule } from "../shared/angular-material.module";
+import { CoreModule } from "../core/core.module";
 
  
 
@@ -19,10 +15,8 @@ import { ExpenseFilterPipe } from "./expense-filter.pipe";
   imports: [
     CommonModule,
     ExpensesRoutingModule,
-    MatIconModule,
-    //BrowserAnimationsModule,
-    //AngularMaterialModule,
-    //CoreModule,
+    AngularMaterialModule,
+    CoreModule,
     FormsModule,
     ReactiveFormsModule,
   ],
