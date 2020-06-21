@@ -10,6 +10,8 @@ namespace ExpensesApp.Models
         public DbSet<Expense> Expenses { get; set; }
         public DbSet<Comment> Comments { get; set; }
 
+        public DbSet<ExpenseUserSplit> ExpenseUserSplit { get; set; }
+
         public ExpensesDbContext(DbContextOptions<ExpensesDbContext> options)
             : base(options)
         { }
@@ -22,7 +24,10 @@ namespace ExpensesApp.Models
                 .HasMany(c => c.Comments)
                 .WithOne(e => e.Expense)
                 .OnDelete(DeleteBehavior.Cascade);
-        }
 
+            modelBuilder.Entity<ExpenseUserSplit>()
+                .HasIndex(e => new { e.ExpenseId, e.UserId })
+                .IsUnique(true);
+        }
     }
 }
