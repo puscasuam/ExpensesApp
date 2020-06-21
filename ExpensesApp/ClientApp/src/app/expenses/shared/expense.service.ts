@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Expense } from './expense.model';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from "@angular/router";
@@ -17,9 +17,15 @@ export class ExpenseService {
     @Inject('BASE_URL') private baseUrl: string,
   ) {}
 
-  getAllExpenses()
+  getAllExpenses(currentPage)
   {
-    return this.httpClient.get<PaginatedExpenses>(this.baseUrl + 'api/Expenses');
+    let pageIndex = currentPage;
+    let itemsPerPage = "2";
+
+    // Create new HttpParams
+    let params = new HttpParams().set("page", pageIndex).set("itemsPerPage", itemsPerPage); 
+
+    return this.httpClient.get<PaginatedExpenses>(this.baseUrl + 'api/Expenses', { params: params });
   }
 
   getExpense(id: number): Observable<Expense>

@@ -9,3 +9,31 @@
   border: none;
   color: #212529
 }
+
+.custom-pagination .page-number {
+  display: inline-block;
+  /* padding: 5px 12px; */
+  /*background: #afffe6;*/
+  margin: 4px 4px;
+  /*border: 0.5px solid;*/
+}
+
+.page-number.current {
+  background: #DCDCDC !important;
+  border-radius: 50%;
+  /*box-shadow: 0 0 0 0.2rem rgba(63,81,181,.25);*/
+}
+
+.page-number span {
+  display: block;
+  width: 28px;
+  height: 28px;
+  font-size: 18px;
+  cursor: pointer;
+  text-align:center;
+}
+
+.pagination-previous, .pagination-next {
+  display: inline-block;
+  font-weight: bold;
+}

@@ -6,6 +6,7 @@ import { ExpenseService } from "./shared/expense.service";
 import { ExpenseFilterPipe } from "./expense-filter.pipe";
 import { AngularMaterialModule } from "../shared/angular-material.module";
 import { CoreModule } from "../core/core.module";
+import { NgxPaginationModule } from 'ngx-pagination';
 
  
 
@@ -19,6 +20,7 @@ import { CoreModule } from "../core/core.module";
     CoreModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxPaginationModule,
   ],
 
   providers: [ExpenseService],
